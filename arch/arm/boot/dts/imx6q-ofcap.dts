@@ -8,6 +8,7 @@
 
 /dts-v1/;
 
+#include <dt-bindings/gpio/gpio.h>
 #include "imx6q.dtsi"
 #include "imx6qdl-icore.dtsi"
 
