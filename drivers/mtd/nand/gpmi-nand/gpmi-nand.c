@@ -566,8 +566,8 @@ int common_nfc_set_geometry(struct gpmi_nand_data *this)
 	}
 
 	if ((!(chip->ecc_strength_ds > 0 && chip->ecc_step_ds > 0) &&
-			(mtd->oobsize < 1024)) || this->legacy_bch_geometry) {
-		dev_warn(this->dev, "use legacy bch geometry\n");
+			(mtd->oobsize < 1024)) || this->legacy_bch_geometry) {	
+		dev_warn(this->dev, "use legacy bch geometry\n");		
 		return legacy_set_geometry(this);
 	}
 
@@ -1016,7 +1016,7 @@ static void gpmi_free_dma_buffer(struct gpmi_nand_data *this)
 
 	this->cmd_buffer	= NULL;
 	this->data_buffer_dma	= NULL;
-	this->raw_buffer	= NULL;
+	this->raw_buffer 	= NULL;
 	this->page_buffer_virt	= NULL;
 	this->page_buffer_size	=  0;
 }
@@ -2123,7 +2123,7 @@ static int mx23_boot_init(struct gpmi_nand_data  *this)
 		 */
 		chipnr = block >> (chip->chip_shift - chip->phys_erase_shift);
 		page = block << (chip->phys_erase_shift - chip->page_shift);
-		byte = (loff_t) block <<  chip->phys_erase_shift;
+		byte = (loff_t) block << chip->phys_erase_shift;
 
 		/* Send the command to read the conventional block mark. */
 		chip->select_chip(mtd, chipnr);
@@ -2274,6 +2274,10 @@ static int gpmi_nand_init(struct gpmi_nand_data *this)
 	if (of_property_read_bool(this->dev->of_node,
 				"fsl,legacy-bch-geometry"))
 		this->legacy_bch_geometry = true;
+
+		if (of_property_read_bool(this->dev->of_node,
+					"fsl,legacy-bch-geometry"))
+			this->legacy_bch_geometry = true;
 
 		if (of_property_read_bool(this->dev->of_node,
 						"fsl,no-blockmark-swap"))
