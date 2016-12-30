@@ -934,6 +934,15 @@ static void adv7180_hard_reset(bool cvbs)
 		adv7180_write_reg(ADV7180_INPUT_CTL, 0x09);
 	}
 
+#define ENGICAM
+#ifdef ENGICAM
+	// setup decoder to output VSYNC
+	adv7180_write_reg(0x58, 0x01);
+
+	// ITU-R BT.656
+	adv7180_write_reg(0x04, 0x45);
+	adv7180_write_reg(0xF4, 0x3F);
+#else
 	/* Datasheet recommends */
 	adv7180_write_reg(0x01, 0xc8);
 	adv7180_write_reg(0x02, 0x04);
@@ -1173,6 +1182,7 @@ static void adv7180_hard_reset(bool cvbs)
 	adv7180_write_reg(0xF9, 0x03);
 	adv7180_write_reg(0xFA, 0xFA);
 	adv7180_write_reg(0xFB, 0x40);
+#endif
 }
 
 /*! ADV7180 I2C attach function.

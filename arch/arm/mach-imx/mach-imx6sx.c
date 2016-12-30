@@ -46,9 +46,11 @@ static int ar8031_phy_fixup(struct phy_device *dev)
 #define PHY_ID_AR8031   0x004dd074
 static void __init imx6sx_enet_phy_init(void)
 {
+#ifdef TOLTO_ICORE
 	if (IS_BUILTIN(CONFIG_PHYLIB))
 		phy_register_fixup_for_uid(PHY_ID_AR8031, 0xffffffff,
 					   ar8031_phy_fixup);
+#endif
 }
 
 static void __init imx6sx_enet_clk_sel(void)
@@ -114,6 +116,7 @@ static void __init imx6sx_map_io(void)
 
 static const char * const imx6sx_dt_compat[] __initconst = {
 	"fsl,imx6sx",
+	"fsl,imx6sx-icore",
 	NULL,
 };
 

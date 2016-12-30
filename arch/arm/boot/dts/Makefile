@@ -264,6 +264,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6dl-gw54xx.dtb \
 	imx6dl-gw552x.dtb \
 	imx6dl-hummingboard.dtb \
+	icoremx6dl-starterkit.dtb \
+	icoremx6q-starterkit.dtb \
 	imx6dl-nitrogen6x.dtb \
 	imx6dl-phytec-pbab01.dtb \
 	imx6dl-rex-basic.dtb \
@@ -300,6 +302,7 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
 	imx6q-gw54xx.dtb \
 	imx6q-gw552x.dtb \
 	imx6q-hummingboard.dtb \
+	imx6q-icore-mipi.dtb \
 	imx6q-nitrogen6x.dtb \
 	imx6q-phytec-pbab01.dtb \
 	imx6q-rex-pro.dtb \
@@ -357,8 +360,18 @@ dtb-$(CONFIG_SOC_IMX6SX) += \
 	imx6sx-19x19-arm2.dtb \
 	imx6sx-19x19-arm2-ldo.dtb \
 	imx6sx-19x19-arm2-csi.dtb \
-	imx6sx-19x19-arm2-gpmi-weim.dtb
+	imx6sx-19x19-arm2-gpmi-weim.dtb \
+	imx6sx-icore.dtb \
+	imx6sx-icore-icu.dtb \
+	imx6sx-smarcore.dtb
 dtb-$(CONFIG_SOC_IMX6UL) += \
+	geamx6ul-starterkit.dtb \
+	geamx6ul-starterkit-emmc.dtb \
+	isiot-imx6ul.dtb \
+	isiot-imx6ul-emmc.dtb \
+	imx6ul-gea-lococap-7.dtb \
+	imx6ul-gea-loco7.dtb \
+	imx6ul-gea-loco43.dtb \
 	imx6ul-14x14-ddr3-arm2.dtb \
 	imx6ul-14x14-ddr3-arm2-emmc.dtb	\
 	imx6ul-14x14-ddr3-arm2-flexcan2.dtb \

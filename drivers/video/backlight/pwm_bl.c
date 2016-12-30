@@ -130,6 +130,27 @@ static const struct backlight_ops pwm_backlight_ops = {
 	.check_fb	= pwm_backlight_check_fb,
 };
 
+static struct backlight_device *bl_mem=NULL;
+static int dft_brightness_mem=0;
+
+/* This fuction will be used to enable the backlight after poweron the fb*/
+void pwm_backlight_enable (bool bStatus)
+{
+	if(bl_mem!=NULL)
+	{
+		if(bStatus)
+		{
+			bl_mem->props.brightness = dft_brightness_mem;
+			backlight_update_status(bl_mem);
+		}
+		else
+		{
+			bl_mem->props.brightness = 0;
+		}
+	}
+}
+EXPORT_SYMBOL(pwm_backlight_enable);
+
 #ifdef CONFIG_OF
 static int pwm_backlight_check_fb_name(struct device *dev, struct fb_info *info)
 {
@@ -328,6 +349,7 @@ static int pwm_backlight_probe(struct platform_device *pdev)
 	props.max_brightness = data->max_brightness;
 	bl = backlight_device_register(dev_name(&pdev->dev), &pdev->dev, pb,
 				       &pwm_backlight_ops, &props);
+	bl_mem=bl; /* Get a pointer copy for use it on lvds-reset*/
 	if (IS_ERR(bl)) {
 		dev_err(&pdev->dev, "failed to register backlight\n");
 		ret = PTR_ERR(bl);
@@ -341,8 +363,9 @@ static int pwm_backlight_probe(struct platform_device *pdev)
 		data->dft_brightness = data->max_brightness;
 	}
 
+	dft_brightness_mem=data->dft_brightness;
 	bl->props.brightness = data->dft_brightness;
-	backlight_update_status(bl);
+	pwm_backlight_enable(true);
 
 	platform_set_drvdata(pdev, bl);
 	return 0;
