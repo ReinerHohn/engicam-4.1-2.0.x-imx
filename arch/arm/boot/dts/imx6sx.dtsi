@@ -149,6 +149,7 @@
 			clock-frequency = <0>;
 			clock-output-names = "ipp_di1";
 		};
+
 	};
 
 	soc {
@@ -296,6 +297,18 @@
 				#size-cells = <1>;
 				reg = <0x02000000 0x40000>;
 				ranges;
+
+				ecspi5: ecspi@0228C000 {
+					#address-cells = <1>;
+					#size-cells = <0>;
+					compatible = "fsl,imx6sx-ecspi", "fsl,imx51-ecspi";
+					reg = <0x0228C000 0x4000>;
+					interrupts = <0 18 0x04>;
+					clocks = <&clks IMX6SX_CLK_ECSPI5>,
+					       <&clks IMX6SX_CLK_ECSPI5>;
+					clock-names = "ipg", "per";
+					status = "disabled";
+				};
 
 				spdif: spdif@02004000 {
 					compatible = "fsl,imx6sx-spdif", "fsl,imx35-spdif";
@@ -900,6 +913,15 @@
 				};
 			};
 
+			pwm5: pwm@022A4000 {
+				#pwm-cells = <2>;
+				compatible = "fsl,imx6sx-pwm", "fsl,imx27-pwm";
+				reg = <0x022A4000 0x4000>;
+				interrupts = <0 83 0x04>;
+				clocks = <&clks IMX6SX_CLK_PWM5>, <&clks IMX6SX_CLK_PWM5>;
+				clock-names = "ipg", "per";
+			};
+
 			sdma: sdma@020ec000 {
 				compatible = "fsl,imx6sx-sdma", "fsl,imx35-sdma";
 				reg = <0x020ec000 0x4000>;
@@ -1416,18 +1438,6 @@
 				status = "disabled";
 			};
 
-			ecspi5: ecspi@0228c000 {
-				#address-cells = <1>;
-				#size-cells = <0>;
-				compatible = "fsl,imx6sx-ecspi", "fsl,imx51-ecspi";
-				reg = <0x0228c000 0x4000>;
-				interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-				clocks = <&clks IMX6SX_CLK_ECSPI5>,
-					 <&clks IMX6SX_CLK_ECSPI5>;
-				clock-names = "ipg", "per";
-				status = "disabled";
-			};
-
 			sema4: sema4@02290000 { /* sema4 */
 				compatible = "fsl,imx6sx-sema4";
 				reg = <0x02290000 0x4000>;
@@ -1458,16 +1468,6 @@
 				dmas = <&sdma 0 4 0>, <&sdma 47 4 0>;
 				dma-names = "rx", "tx";
 				status = "disabled";
-			};
-
-			pwm5: pwm@022a4000 {
-				compatible = "fsl,imx6sx-pwm", "fsl,imx27-pwm";
-				reg = <0x022a4000 0x4000>;
-				interrupts = <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>;
-				clocks = <&clks IMX6SX_CLK_PWM5>,
-					 <&clks IMX6SX_CLK_PWM5>;
-				clock-names = "ipg", "per";
-				#pwm-cells = <2>;
 			};
 
 			pwm6: pwm@022a8000 {
@@ -1528,5 +1528,6 @@
 			power-domains = <&gpc 2>;
 			status = "disabled";
 		};
+
 	};
 };

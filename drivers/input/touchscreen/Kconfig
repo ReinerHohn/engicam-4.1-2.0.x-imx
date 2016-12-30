@@ -454,6 +454,19 @@ config TOUCHSCREEN_MAX11801
 
 	  To compile this driver as a module, choose M here: the
 	  module will be called max11801_ts.
+	  
+config ENGICAM_MAX1180_CUSTOM
+	bool "MAX11801 for Engicam board"
+	default Y
+	depends on TOUCHSCREEN_MAX11801
+	help
+	  Select this option for include Engicam custom driver improvment. This
+	  option is strictly recommended for big size LCD screen and resistive
+	  openframe board.
+	  
+	  If unsure, say Y.
+	  
+	  Deselect this option for using default driver configuration.
 
 config TOUCHSCREEN_MCS5000
 	tristate "MELFAS MCS-5000 touchscreen"
@@ -596,6 +609,19 @@ config TOUCHSCREEN_PENMOUNT
 
 config TOUCHSCREEN_EDT_FT5X06
 	tristate "EDT FocalTech FT5x06 I2C Touchscreen support"
+	depends on I2C
+	help
+	  Say Y here if you have an EDT "Polytouch" touchscreen based
+	  on the FocalTech FT5x06 family of controllers connected to
+	  your system.
+
+	  If unsure, say N.
+
+	  To compile this driver as a module, choose M here: the
+	  module will be called edt-ft5x06.
+
+config TOUCHSCREEN_EDT_ENG_FT5X06
+	tristate "EDT FocalTech FT5x06 I2C Touchscreen support Engicam Custom"
 	depends on I2C
 	help
 	  Say Y here if you have an EDT "Polytouch" touchscreen based
