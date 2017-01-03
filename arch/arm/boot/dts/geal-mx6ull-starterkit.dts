@@ -98,31 +98,6 @@
 			"Headphone Jack", "HP_OUT";
 	};
 
-#ifdef TOLTO_GEAL
-	spi4 {
-		compatible = "spi-gpio";
-		pinctrl-names = "default";
-		pinctrl-0 = <&pinctrl_spi4>;
-		pinctrl-assert-gpios = <&gpio5 8 GPIO_ACTIVE_LOW>;
-		status = "disabled";
-		gpio-sck = <&gpio5 11 0>;
-		gpio-mosi = <&gpio5 10 0>;
-		cs-gpios = <&gpio5 7 0>;
-		num-chipselects = <1>;
-		#address-cells = <1>;
-		#size-cells = <0>;
-
-		gpio_spi: gpio_spi@0 {
-			compatible = "fairchild,74hc595";
-			gpio-controller;
-			#gpio-cells = <2>;
-			reg = <0>;
-			registers-number = <1>;
-			registers-default = /bits/ 8 <0xb7>;
-			spi-max-frequency = <100000>;
-		};
-	};
-#endif
 };
 
 &cpu0 {
@@ -182,46 +157,11 @@
 	nand-on-flash-bbt;
 };
 
-&lcdif {
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_lcdif_dat
-		     &pinctrl_lcdif_ctrl>;
-	display = <&display0>;
-	status = "disabled";
-
-	display0: display {
-		bits-per-pixel = <16>;
-		bus-width = <18>;
-
-		display-timings {
-			native-mode = <&timing0>;
-			timing0: timing0 {
-			clock-frequency = <28000000>;
-			hactive = <800>;
-			vactive = <480>;
-			hfront-porch = <30>;
-			hback-porch = <30>;
-			hsync-len = <64>;
-			vback-porch = <5>;
-			vfront-porch = <5>;
-			vsync-len = <20>;
-
-			hsync-active = <0>;
-			vsync-active = <0>;
-			de-active = <1>;
-			pixelclk-active = <0>;
-			};
-		};
-	};
-};
-
-
 &pwm8 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_pwm8>;
 	status = "okay";
 };
-
 
 &pxp {
 	status = "disabled";
@@ -233,17 +173,6 @@
 	status = "okay";
 };
 
-#ifdef TOLTO_GEAL
-&tsc {
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_tsc>;
-	status = "okay";
-	xnur-gpio = <&gpio1 3 0>;
-	measure_delay_time = <0x1ffff>;
-	pre_charge_time = <0xfff>;
-	status = "disabled";
-};
-#endif
 
 &uart1 {
 	pinctrl-names = "default";
@@ -263,7 +192,7 @@
 
 &uart8 {
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_uart8>;	
+	pinctrl-0 = <&pinctrl_uart8>;
 	fsl,uart-has-rtscts;
 	status = "okay";
 };
@@ -333,6 +262,7 @@
 	pinctrl-0 = <&pinctrl_i2c2>;
 	status = "okay";
 };
+
 
 &iomuxc {
 	pinctrl-names = "default";
@@ -406,40 +336,6 @@
 				MX6UL_PAD_NAND_DATA07__RAWNAND_DATA07   0xb0b1
 			>;
 		};
-
-		pinctrl_lcdif_dat: lcdifdatgrp {
-			fsl,pins = <
-				MX6UL_PAD_LCD_DATA00__LCDIF_DATA00  0x79
-				MX6UL_PAD_LCD_DATA01__LCDIF_DATA01  0x79
-				MX6UL_PAD_LCD_DATA02__LCDIF_DATA02  0x79
-				MX6UL_PAD_LCD_DATA03__LCDIF_DATA03  0x79
-				MX6UL_PAD_LCD_DATA04__LCDIF_DATA04  0x79
-				MX6UL_PAD_LCD_DATA05__LCDIF_DATA05  0x79
-				MX6UL_PAD_LCD_DATA06__LCDIF_DATA06  0x79
-				MX6UL_PAD_LCD_DATA07__LCDIF_DATA07  0x79
-				MX6UL_PAD_LCD_DATA08__LCDIF_DATA08  0x79
-				MX6UL_PAD_LCD_DATA09__LCDIF_DATA09  0x79
-				MX6UL_PAD_LCD_DATA10__LCDIF_DATA10  0x79
-				MX6UL_PAD_LCD_DATA11__LCDIF_DATA11  0x79
-				MX6UL_PAD_LCD_DATA12__LCDIF_DATA12  0x79
-				MX6UL_PAD_LCD_DATA13__LCDIF_DATA13  0x79
-				MX6UL_PAD_LCD_DATA14__LCDIF_DATA14  0x79
-				MX6UL_PAD_LCD_DATA15__LCDIF_DATA15  0x79
-				MX6UL_PAD_LCD_DATA16__LCDIF_DATA16  0x79
-				MX6UL_PAD_LCD_DATA17__LCDIF_DATA17  0x79
-
-			>;
-		};
-
-		pinctrl_lcdif_ctrl: lcdifctrlgrp {
-			fsl,pins = <
-				MX6UL_PAD_LCD_CLK__LCDIF_CLK	    0x79
-				MX6UL_PAD_LCD_ENABLE__LCDIF_ENABLE  0x79
-				MX6UL_PAD_LCD_HSYNC__LCDIF_HSYNC    0x79
-				MX6UL_PAD_LCD_VSYNC__LCDIF_VSYNC    0x79
-			>;
-		};
-
 
 		pinctrl_pwm8: pwm8grp {
 			fsl,pins = <
@@ -524,16 +420,7 @@
 			>;
 		};
 
-#ifdef TOLTO_GEAL
-		pinctrl_tsc: tscgrp {
-			fsl,pin = <
-				MX6UL_PAD_GPIO1_IO01__GPIO1_IO01	0xb0
-				MX6UL_PAD_GPIO1_IO02__GPIO1_IO02	0xb0
-				MX6UL_PAD_GPIO1_IO03__GPIO1_IO03	0xb0
-				MX6UL_PAD_GPIO1_IO04__GPIO1_IO04	0xb0
-			>;
-		};
-#endif
+
 		pinctrl_i2c1: i2c1grp {
 			fsl,pins = <
 				MX6UL_PAD_UART4_TX_DATA__I2C1_SCL 0x4001b8b0
@@ -567,13 +454,5 @@
 			>;
 		};
 
-		pinctrl_spi4: spi4grp {
-			fsl,pins = <
-				MX6UL_PAD_BOOT_MODE0__GPIO5_IO10	0x70a1
-				MX6UL_PAD_BOOT_MODE1__GPIO5_IO11	0x70a1
-				MX6UL_PAD_SNVS_TAMPER7__GPIO5_IO07	0x70a1
-				MX6UL_PAD_SNVS_TAMPER8__GPIO5_IO08	0x80000000
-			>;
-		};
 	};
 };
