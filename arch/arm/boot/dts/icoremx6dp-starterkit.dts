@@ -1,0 +1,75 @@
+/*
+ * Copyright (C) 2015 Freescale Semiconductor, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+#include "icoremx6q-starterkit.dts"
+#include "imx6qp.dtsi"
+
+/ {
+	model = "Engicam i.Core MX6 Dual Plus Starterkit";
+
+	memory:	memory {
+		reg = <0x10000000 0x30000000>;
+	};
+};
+
+&mxcfb1 {
+	prefetch;
+};
+
+&mxcfb2 {
+	prefetch;
+};
+
+&mxcfb3 {
+	status = "okay";
+};
+
+&mxcfb4 {
+	prefetch;
+};
+/*
+&pcie {
+	status = "okay";
+};
+*/
+/**/
+&pre1 {
+	status = "okay";
+};
+
+&pre2 {
+	status = "okay";
+};
+
+&pre3 {
+	status = "okay";
+};
+
+&pre4 {
+	status = "okay";
+};
+
+&prg1 {
+	memory-region = <&memory>;
+	status = "okay";
+};
+
+&prg2 {
+	memory-region = <&memory>;
+	status = "okay";
+};
+
+&reg_sd3_vmmc {
+	status = "okay";
+};
+/*
+&sata {
+	status = "okay";
+};
+*/
+
